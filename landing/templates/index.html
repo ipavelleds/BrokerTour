@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?115"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer>
+      {lang: 'ru'}
+    </script>
+    <title></title>
+</head>
+<body>
+    <header>
+        <div class="header-in">
+            <div class="header-top">
+                <div class="slider" id="slider">
+                    {% for tour in tours %}
+                    <div class="slide">
+                        <div class="tour-image">
+                            <img src="{{ MEDIA_URL }}{{ tour.picture }}">
+                        </div>
+                        <div class="description-tour">
+                            <div class="description-tour-in">
+                                <div class="tour">
+                                    <div class="name">
+                                        <p>{{ tour.nameTour }}</p>
+                                    </div>
+                                    <div class="description">
+                                        <p><b>{{ tour.time }}, вылет {{ tour.dateDeparture }}</b> - {{ tour.nameHotel }}, {{ tour.aboutHotel }}</p>
+                                    </div>
+                                    <div class="rating">
+                                        {% for star in tour.get_stars %}
+                                            <span class="star"></span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="info-separator">
+                                </div>
+                                <div class="piece-tour">
+                                    <p class="piece">{{ tour.piece }}<span class="rub">q</span> </p>
+                                    <p class="person">за человека</p>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="header-stamp">
+                            <img src="{{ STATIC_URL }}img/stamp.png">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="header-info-tour slidesjs-navigation">
+                            <div class="header-info-tour-in">
+                                <div class="info-tour-arrows left slidesjs-previous slidesjs-navigation">
+                                    <img src="{{ STATIC_URL }}img/icon_arrow_left.png">
+                                </div>
+                                <div class="info-tour-arrows right slidesjs-next slidesjs-navigation">
+                                    <img src="{{ STATIC_URL }}img/icon_arrow_right.png">
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="header-top-in">
+                    <div class="header-top-labels">
+                        <div class="label">
+                            <p>Broker<b>Tour</b></p>
+                        </div>
+                        <div class="label">
+                            <p><b>+7 916 788 28 82</b></p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-form">
+                <div class="header-form-in">
+                    <form action="send_order" method="post" class="phone-form"> {% csrf_token %}
+                        <div class="user-phone-wrapper">
+                            <input type="tel" placeholder="ВАШ НОМЕР ТЕЛЕФОНА" id="user-phone" name="phone"/>
+                        </div>
+                        <input type="button" class="button-submit" value="Выбрать этот тур" id="send-order"/>
+
+                        <div id="popup" style="display: none">
+                            <div class="popup-in">
+                                <h1>НЕБОЛЬШАЯ ФОРМАЛЬНОСТЬ</h1>
+                                <div id="popup-close">
+                                    <img src="{{ STATIC_URL }}img/icon_close.png">
+                                </div>
+                                <div class="popup-inputs">
+                                    <div class="popup-name">
+                                        <p>Имя</p>
+                                        <input type="text" name="name">
+                                    </div>
+                                    <div class="popup-email">
+                                        <p>Email</p>
+                                        <input type="text" name="email">
+                                    </div>
+                                    <input type="submit" value="Далее">
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="buttons-social">
+                                    <div id="vk_like"></div>
+                                    <div class="button-fb button-social">
+                                        <div class="fb-like" data-href="https://www.facebook.com/Brokertour.ru" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                                    </div>
+                                    <div class="button-g-plus button-social">
+                                        <g:plusone></g:plusone>
+                                    </div>
+                                    <div class="button-pin-it button-social">
+                                        <a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="white"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_white_20.png" /></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <div class="section-in">
+            <div class="buttons-social">
+                <div class="button-fb button-social">
+                    <div class="fb-like" data-href="https://www.facebook.com/Brokertour.ru" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                </div>
+                <div class="button-g-plus button-social">
+                   <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+                </div>
+                <div class="button-pin-it button-social">
+                    <a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="white"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_white_20.png" /></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="banners">
+                {% for tour in tours %}
+                    <div class="banner one-banner-tour">
+                        <div class="banner-img">
+                            <img src="{{ MEDIA_URL }}{{ tour.picture }}">
+                        </div>
+                        <div class="banner-description">
+                            <div class="banner-date">
+                                <p><b>{{ tour.time }}, {{ tour.dateDeparture }}, {{ tour.aboutHotel }}</b></p>
+                            </div>
+                            <div class="banner-name">
+                                <p>{{ tour.nameTour }}</p>
+                            </div>
+                            <div class="banner-piece">
+                                <p class="piece">{{ tour.piece }}<span class="rub">q</span> </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="clearfix"></div>
+            </div>
+{#            <div class="facebook-box">#}
+{#                <div class="fb-like-box" data-href="https://www.facebook.com/FacebookDevelopers" data-width="950" data-height="250" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>            </div>#}
+{#            </div>#}
+            <div class="vk-box">
+                <div id="vk_groups"></div>
+                <script type="text/javascript">
+                VK.Widgets.Group("vk_groups", {mode: 0, width: "940", height: "250", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 23689229);
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-in">
+            <div class="column-left">
+                <a>Copyright BrokerTour 2014</a>
+            </div>
+            <div class="column-right">
+                <a href="">О проекте</a>
+                <a href="">Как купить</a>
+                <a href="">Офисы</a>
+                <a href="">Клубная карта</a>
+                <a href="">Визовая поддержка</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </footer>
+</body>
+</html>
