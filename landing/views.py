@@ -9,18 +9,22 @@ def landing_render(request):
 
 
 def send_order(request):
+    current_tour = Tour.objects.all()[int(request.POST.get('tour-id'))-1]
+    user_name = ""
+    user_email = ""
     if request.method == 'POST':
         if request.POST["phone"]:
-            message = 'от ' + request.POST.get('name') + '. Телефон: ' + request.POST.get('phone','')
-            print(message)
+            if request.POST["name"]:
+                user_name = u'Имя клиента: ' + request.POST["name"] + '\n'
+            if request.POST["email"]:
+                user_email = u'Почта клиента: ' + request.POST["email"] + '\n'
+            message = user_name + user_email + u'Выбран тур: ' + current_tour.nameTour
             send_mail(
                 'Новая заявка c BrokerTour',
                 message,
-                request.POST.get('email', ''),
+                request.POST['email'],
                 ['ipavelleds@gmail.com'],
                 fail_silently=False
             )
-            print "Mail send"
             return redirect('/')
-    print "Mail not send"
     return redirect('/')

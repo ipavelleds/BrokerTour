@@ -135,6 +135,10 @@ header{ position: relative; background-color: #000; min-width: 1340px}
     width: 100%;
 }
 
+.tour-image img{
+    width: 1340px;
+}
+
 .description-tour{
     position: absolute;
     bottom: 0;
@@ -204,16 +208,21 @@ header .rub{
 .header-form-in{
     margin: 0 auto;
     width: 480px;
+}
+
+.phone-form {
+    font-size: 18px;
+    text-align: center;
     height: 40px;
     background-color: #fff;
     border-radius: 3px;
 }
 
-.phone-form{
-    font-size: 18px;
-    height: 100%;
+.phone-form-error{
+    padding-top: 20px;
     text-align: center;
-
+    font-weight: bold;
+    display: none;
 }
 
 .header-form input[type="button"]{
@@ -293,6 +302,7 @@ section{
     float: left;
     margin: 10px;
     overflow: hidden;
+    cursor: pointer;
 }
 .banner-img{
     width: 300px;
@@ -301,7 +311,6 @@ section{
 .banner-img img{
     height: 200px;
     position: relative;
-    left: -50%;
 }
 .banner-description{
     position: absolute;
@@ -383,7 +392,6 @@ footer .column-right{
     margin:40px auto 0px auto;
     width: 750px;
     height: 300px;
-    padding:10px;
     background-color: #fff;
     border-radius:5px;
 }
@@ -463,6 +471,13 @@ footer .column-right{
     background-color: #743e00;
 }
 
+.popup-in .line{
+    height: 1px;
+    width: 100%;
+    margin-top: 40px;
+    background-color: #d0d0d0;
+}
+
 /*!POPUP*/
 
 .facebook-box{
@@ -490,4 +505,5 @@ footer .column-right{
 
 .popup-in .buttons-social{
     margin: 0 230px;
+    padding: 30px 0 20px;
 }

@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css">
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.maskedinput.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.mask.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.scrollTo.js"></script>
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
     <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?115"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
 
-    <script src="https://apis.google.com/js/platform.js" async defer>
-      {lang: 'ru'}
+    <script type="text/javascript">
+        VK.init({apiId: 4626819, onlyWidgets: true});
     </script>
     <title></title>
 </head>
@@ -22,7 +23,7 @@
             <div class="header-top">
                 <div class="slider" id="slider">
                     {% for tour in tours %}
-                    <div class="slide">
+                    <div class="slide" data-tour-id="{{ tour.id }}">
                         <div class="tour-image">
                             <img src="{{ MEDIA_URL }}{{ tour.picture }}">
                         </div>
@@ -85,6 +86,7 @@
             <div class="header-form">
                 <div class="header-form-in">
                     <form action="send_order" method="post" class="phone-form"> {% csrf_token %}
+                        <input type="hidden" name="tour-id">
                         <div class="user-phone-wrapper">
                             <input type="tel" placeholder="ВАШ НОМЕР ТЕЛЕФОНА" id="user-phone" name="phone"/>
                         </div>
@@ -108,13 +110,19 @@
                                     <input type="submit" value="Далее">
                                     <div class="clearfix"></div>
                                 </div>
+                                <div class="line"></div>
                                 <div class="buttons-social">
-                                    <div id="vk_like"></div>
+                                    <div class="button-vb button-social">
+                                        <div id="vk_like"></div>
+                                        <script type="text/javascript">
+                                        VK.Widgets.Like("vk_like", {type: "mini"});
+                                        </script>
+                                    </div>
                                     <div class="button-fb button-social">
                                         <div class="fb-like" data-href="https://www.facebook.com/Brokertour.ru" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
                                     </div>
                                     <div class="button-g-plus button-social">
-                                        <g:plusone></g:plusone>
+                                        <g:plusone size="medium"></g:plusone>
                                     </div>
                                     <div class="button-pin-it button-social">
                                         <a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="white"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_white_20.png" /></a>
@@ -124,6 +132,7 @@
                             </div>
                         </div>
                     </form>
+                    <p class="phone-form-error">УКАЖИТЕ ТЕЛЕФОН ПОЛНОСТЬЮ</p>
                 </div>
             </div>
         </div>
@@ -132,11 +141,17 @@
     <section>
         <div class="section-in">
             <div class="buttons-social">
+                <div class="button-vb button-social">
+                    <div id="vk_like"></div>
+                    <script type="text/javascript">
+                    VK.Widgets.Like("vk_like", {type: "mini"});
+                    </script>
+                </div>
                 <div class="button-fb button-social">
                     <div class="fb-like" data-href="https://www.facebook.com/Brokertour.ru" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
                 </div>
                 <div class="button-g-plus button-social">
-                   <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+                   <g:plusone size="medium"></g:plusone>
                 </div>
                 <div class="button-pin-it button-social">
                     <a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="white"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_white_20.png" /></a>
@@ -145,7 +160,7 @@
             </div>
             <div class="banners">
                 {% for tour in tours %}
-                    <div class="banner one-banner-tour">
+                    <div class="banner one-banner-tour" data-item={{ tour.id }}>
                         <div class="banner-img">
                             <img src="{{ MEDIA_URL }}{{ tour.picture }}">
                         </div>
