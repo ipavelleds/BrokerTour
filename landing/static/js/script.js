@@ -60,7 +60,7 @@ $(document).ready(function(){
 
     $(function(){
         $('#user-phone').each(function(){
-            $(this).mask("(999) 999-99-99");
+            $(this).inputmask("(999) 999-99-99");
         });
 
         var form = $('.phone-form'),
