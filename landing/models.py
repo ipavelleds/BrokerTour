@@ -18,5 +18,4 @@ class Tour(models.Model):
 
     def get_piece(self):
         piece = str(self.piece)[:-3] + u' ' + str(self.piece)[-3:]
-        print piece
         return piece

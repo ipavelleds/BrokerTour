@@ -1,6 +1,7 @@
 #coding: utf-8
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+from django.conf import settings
 from models import Tour
 
 
@@ -18,12 +19,12 @@ def send_order(request):
                 user_name = u'Имя клиента: ' + request.POST["name"] + '\n'
             if request.POST["email"]:
                 user_email = u'Почта клиента: ' + request.POST["email"] + '\n'
-            message = user_name + user_email + u'Выбран тур: ' + current_tour.nameTour
+            message = user_name + user_email + u'Телефон клиента: ' + request.POST["phone"] + u'\nВыбран тур: ' + current_tour.nameTour
             send_mail(
                 'Новая заявка c BrokerTour',
                 message,
                 request.POST['email'],
-                ['ipavelleds@gmail.com'],
+                [settings.EMAIL_HOST_USER],
                 fail_silently=False
             )
             return redirect('/')
