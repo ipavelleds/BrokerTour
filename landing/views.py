@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from models import Tour
+from django.contrib.auth.models import User
 
 
 def landing_render(request):
@@ -10,6 +11,7 @@ def landing_render(request):
 
 
 def send_order(request):
+    super_users = User.objects.filter(is_superuser=True)
     current_tour = Tour.objects.all()[int(request.POST.get('tour-id'))-1]
     user_name = ""
     user_email = ""
@@ -20,12 +22,22 @@ def send_order(request):
             if request.POST["email"]:
                 user_email = u'Почта клиента: ' + request.POST["email"] + '\n'
             message = user_name + user_email + u'Телефон клиента: ' + request.POST["phone"] + u'\nВыбран тур: ' + current_tour.nameTour
-            send_mail(
+            if not super_users:
+                send_mail(
                 'Новая заявка c BrokerTour',
                 message,
-                request.POST['email'],
+                settings.EMAIL_HOST_USER,
                 [settings.EMAIL_HOST_USER],
                 fail_silently=False
-            )
+                )
+            else:
+                for super_user in super_users:
+                    send_mail(
+                        'Новая заявка c BrokerTour',
+                        message,
+                        super_user.email,
+                        [super_user.email],
+                        fail_silently=False
+                    )
             return redirect('/')
     return redirect('/')
