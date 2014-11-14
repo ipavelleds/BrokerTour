@@ -49,7 +49,7 @@ $(document).ready(function(){
         $(".banner").click(function(e){
           e.preventDefault();
           // use data-item value when triggering default pagination link
-          $('a[data-slidesjs-item="' + ($(this).attr("data-item") - 1) + '"]').trigger('click');
+          $('a[data-slidesjs-item="' + ($(this).attr("data-item") - $(".slidesjs-control .slide:first-child").attr("data-tour-id")) + '"]').trigger('click');
           $.scrollTo("0", 800);
         });
     });
