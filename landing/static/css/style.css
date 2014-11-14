@@ -504,7 +504,7 @@ footer .column-left{
 .buttons-social{
     display: block;
     margin: 0 auto;
-    width: 325px;
+    width: 420px;
 }
 
 .button-social{
@@ -517,6 +517,6 @@ footer .column-left{
 }
 
 .popup-in .buttons-social{
-    margin: 0 230px;
+    margin: 0 160px;
     padding: 30px 0 20px;
 }
