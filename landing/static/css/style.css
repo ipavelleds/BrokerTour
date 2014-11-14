@@ -54,10 +54,19 @@ body{ position: relative; min-height: 100%; background-color: #e5e9f0; color: #f
 
 
 /*HEADER*/
-header{ position: relative; background-color: #000; min-width: 1340px}
+header{
+    position: relative;
+    background-color: #000;
+    min-width: 1000px;
+    width: 100%;
+    max-width: 1340px;
+    margin: 0 auto;
+}
 .header-in{
     position: relative;
-    width: 1340px;
+    min-width: 1000px;
+    width: 100%;
+    max-width: 1340px;
     margin: 0 auto;
 }
 
@@ -136,7 +145,9 @@ header{ position: relative; background-color: #000; min-width: 1340px}
 }
 
 .tour-image img{
-    width: 1340px;
+    min-width: 1000px;
+    width: 100%;
+    max-width: 1340px;
 }
 
 .description-tour{
@@ -283,11 +294,16 @@ header .rub{
 
 /*SECTION*/
 section{
-    min-width: 1340px;
+    min-width: 1000px;
+    width: 100%;
+    max-width: 1340px;
     padding-bottom: 100px;
+    margin: 0 auto;
 }
 .section-in{
-    width: 1340px;
+    min-width: 1000px;
+    width: 100%;
+    max-width: 1340px;
     margin: 0 auto;
 }
 .buttons-social{
@@ -347,8 +363,8 @@ section{
 /*FOOTER*/
 footer{
     position: absolute;
+    min-width: 1000px;
     width: 100%;
-    min-width: 1340px;
     bottom: 0;
     background-color: #b2c0cb;
 }
@@ -361,7 +377,7 @@ footer a{
     margin: 0 10px;
 }
 .footer-in{
-    width: 1340px;
+    width: 1000px;
     margin: 0 auto;
 }
 footer .column-left{
@@ -490,8 +506,9 @@ footer .column-right{
 }
 
 .buttons-social{
-    display: inline-block;
-    margin: 0 528px;
+    display: block;
+    margin: 0 auto;
+    width: 325px;
 }
 
 .button-social{
