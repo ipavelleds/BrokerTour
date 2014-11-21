@@ -48,15 +48,10 @@ $(document).ready(function(){
      });
         $(".banner").click(function(e){
           e.preventDefault();
-          // use data-item value when triggering default pagination link
-          $('a[data-slidesjs-item="' + ($(this).attr("data-item") - $(".slidesjs-control .slide:first-child").attr("data-tour-id")) + '"]').trigger('click');
+          $('a[data-slidesjs-item="' + $(this).attr("data-item") + '"]').trigger('click');
           $.scrollTo("0", 800);
         });
     });
-
-//    $("#send-order").click(function(){
-//        $("#popup").fadeIn(600);
-//    });
 
     $(function(){
         $('#user-phone').each(function(){
@@ -64,11 +59,11 @@ $(document).ready(function(){
         });
 
         var form = $('.phone-form'),
-        btn = form.find('.button-submit');
+        btn = form.find('.button-select-tour');
 
         setInterval(function(){
             var pmc = $('#user-phone');
-            if ( (pmc.val().length != 15) || pmc.val() == '' ) {
+            if ( (pmc.val().length != 15) || pmc.val() == '' || (pmc.val().indexOf("_") != -1) ) {
               pmc.addClass('empty-field');
             } else {
                 pmc.removeClass('empty-field');
@@ -95,6 +90,10 @@ $(document).ready(function(){
                 $(".phone-form-error").hide();
                 $("#popup").fadeIn(600);
             }
+
+            $('.popup-in input[type="button"]').click(function(){
+               form.submit()
+            });
         });
 
     });

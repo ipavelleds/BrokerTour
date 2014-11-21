@@ -42,46 +42,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         <div class="description-tour">
                             <div class="description-tour-in">
                                 <div class="tour">
-                                    <div class="name">
-                                        <p>{{ tour.nameTour }}</p>
+                                <div class="header-info-tour slidesjs-navigation">
+                                    <div class="header-info-tour-in">
+                                        <div class="info-tour-arrows left slidesjs-previous slidesjs-navigation">
+                                            <img src="{{ STATIC_URL }}img/icon_arrow_left.png">
+                                        </div>
+                                        <div class="description">
+                                            <div class="name">
+                                                <p>{{ tour.nameTour }}</p>
+                                            </div>
+                                            <p>
+                                                <b>вылет {{ tour.dateDeparture }}, {{ tour.time }}</b> - {{ tour.nameHotel }}, {{ tour.aboutHotel }}
+                                                <div class="rating">
+                                                    {% for star in tour.get_stars %}
+                                                        <span class="star"></span>
+                                                    {% endfor %}
+                                                </div>
+                                            </p>
+                                        </div>
+                                        <div class="info-separator">
+                                        </div>
+                                        <div class="info-tour-arrows right slidesjs-next slidesjs-navigation">
+                                            <img src="{{ STATIC_URL }}img/icon_arrow_right.png">
+                                        </div>
+                                        <div class="piece-tour">
+                                            <p class="piece">{{ tour.get_piece }}<span class="rub">q</span> </p>
+                                            <p class="person">за человека</p>
+                                        </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="description">
-                                        <p><b>{{ tour.time }}, вылет {{ tour.dateDeparture }}</b> - {{ tour.nameHotel }}, {{ tour.aboutHotel }}</p>
-                                    </div>
-                                    <div class="rating">
-                                        {% for star in tour.get_stars %}
-                                            <span class="star"></span>
-                                        {% endfor %}
-                                    </div>
+                                <div class="clearfix"></div>
                                 </div>
-                                <div class="info-separator">
-                                </div>
-                                <div class="piece-tour">
-                                    <p class="piece">{{ tour.get_piece }}<span class="rub">q</span> </p>
-                                    <p class="person">за человека</p>
+                                <div class="clearfix"></div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
-                        </div>
-                        <div class="header-stamp">
-                            <img src="{{ STATIC_URL }}img/stamp.png">
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     {% endfor %}
-
-                    <div class="header-info-tour slidesjs-navigation">
-                            <div class="header-info-tour-in">
-                                <div class="info-tour-arrows left slidesjs-previous slidesjs-navigation">
-                                    <img src="{{ STATIC_URL }}img/icon_arrow_left.png">
-                                </div>
-                                <div class="info-tour-arrows right slidesjs-next slidesjs-navigation">
-                                    <img src="{{ STATIC_URL }}img/icon_arrow_right.png">
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="clearfix"></div>
-                    </div>
                 </div>
                 <div class="header-top-in">
                     <div class="header-top-labels">
@@ -97,12 +96,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
             <div class="header-form">
                 <div class="header-form-in">
-                    <form action="send_order" method="post" class="phone-form"> {% csrf_token %}
+                    <form action="send-order" method="post" class="phone-form"> {% csrf_token %}
                         <input type="hidden" name="tour-id">
                         <div class="user-phone-wrapper">
                             <input type="tel" placeholder="ВАШ НОМЕР ТЕЛЕФОНА" id="user-phone" name="phone"/>
                         </div>
-                        <input type="button" class="button-submit" value="Выбрать этот тур" id="send-order"/>
+                        <input type="button" class="button-select-tour" value="Выбрать этот тур" id="send-order"/>
 
                         <div id="popup" style="display: none">
                             <div class="popup-in">
@@ -119,7 +118,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                         <p>Email</p>
                                         <input type="text" name="email">
                                     </div>
-                                    <input type="submit" value="Далее">
+                                    <input type="button" value="Далее">
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="line"></div>
@@ -147,6 +146,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     <p class="phone-form-error">УКАЖИТЕ ТЕЛЕФОН ПОЛНОСТЬЮ</p>
                 </div>
             </div>
+            <div class="header-stamp">
+                <img src="{{ STATIC_URL }}img/stamp.png">
+            </div>
         </div>
     </header>
 
@@ -172,16 +174,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
             <div class="banners">
                 {% for tour in tours %}
-                    <div class="banner one-banner-tour" data-item={{ tour.id }}>
+                    <div class="banner one-banner-tour" data-item={{ forloop.counter0 }}>
                         <div class="banner-img">
                             <img src="{{ MEDIA_URL }}{{ tour.picture }}">
                         </div>
                         <div class="banner-description">
-                            <div class="banner-date">
-                                <p><b>{{ tour.time }}, {{ tour.dateDeparture }}, {{ tour.aboutHotel }}</b></p>
-                            </div>
-                            <div class="banner-name">
-                                <p>{{ tour.nameTour }}</p>
+                            <div class="left-block">
+                                <div class="banner-date">
+                                <p><b>{{ tour.dateDeparture }}, {{ tour.time }}, {{ tour.aboutHotel }}</b></p>
+                                </div>
+                                <div class="banner-name">
+                                    <p>{{ tour.nameTour }}</p>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                             <div class="banner-piece">
                                 <p class="piece">{{ tour.get_piece }}<span class="rub">q</span> </p>

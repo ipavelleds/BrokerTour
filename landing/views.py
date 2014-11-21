@@ -12,7 +12,9 @@ def landing_render(request):
 
 def send_order(request):
     super_users = User.objects.filter(is_superuser=True)
-    recipients = [super_user.email for super_user in super_users] if super_users else [settings.EMAIL_HOST_USER]
+    recipients = [super_user.email for super_user in super_users]
+    if recipients == [u'']:
+        recipients = [settings.EMAIL_HOST_USER]
     current_tour = Tour.objects.all()[int(request.POST.get('tour-id'))-1]
     user_name = ""
     user_email = ""
