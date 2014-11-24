@@ -1,9 +1,11 @@
 #coding: utf-8
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.conf import settings
 from models import Tour
 from django.contrib.auth.models import User
+import json
 
 
 def landing_render(request):
@@ -32,5 +34,9 @@ def send_order(request):
                 recipients,
                 fail_silently=False
             )
-            return redirect('/')
+            data = json.dumps({"success": True})
+            return HttpResponse(data, content_type='application/json')
+        else:
+            data = json.dumps({"success": False, "error": "Не указан телефон"})
+            return HttpResponse(data, content_type='application/json')
     return redirect('/')

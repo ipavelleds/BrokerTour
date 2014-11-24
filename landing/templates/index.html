@@ -96,7 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
             <div class="header-form">
                 <div class="header-form-in">
-                    <form action="send-order" method="post" class="phone-form"> {% csrf_token %}
+                    <form action="/send-order/" method="post" class="phone-form"> {% csrf_token %}
                         <input type="hidden" name="tour-id">
                         <div class="user-phone-wrapper">
                             <input type="tel" placeholder="ВАШ НОМЕР ТЕЛЕФОНА" id="user-phone" name="phone"/>
@@ -118,8 +118,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                                         <p>Email</p>
                                         <input type="text" name="email">
                                     </div>
-                                    <input type="button" value="Далее">
+                                    <input type="submit" value="Далее">
                                     <div class="clearfix"></div>
+                                    <p class="info"></p>
                                 </div>
                                 <div class="line"></div>
                                 <div class="buttons-social">

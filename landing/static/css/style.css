@@ -324,6 +324,8 @@ section{
 .banner-img img{
     min-height: 100%;
     min-width: 100%;
+    max-width: 130%;
+    max-height: 130%;
     position: relative;
 }
 .banner-description{
@@ -486,6 +488,17 @@ footer .column-left{
 
 .popup-in input[type="button"]:active{
     background-color: #743e00;
+}
+
+.popup-in .info {
+    display: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 10px 0 0;
+    font-size: 20px;
+    color: black;
+    font-family: ProximaNova-Bold, arial, sans-serif;
 }
 
 .popup-in .line{
