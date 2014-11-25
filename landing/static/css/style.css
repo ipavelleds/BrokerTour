@@ -468,7 +468,7 @@ footer .column-left{
     float: left;
 }
 
-.popup-in input[type="button"]{
+.popup-in input[type="submit"]{
     float: left;
     width: 100px;
     height: 45px;
@@ -482,11 +482,11 @@ footer .column-left{
     cursor: pointer;
 }
 
-.popup-in input[type="button"]:hover{
+.popup-in input[type="submit"]:hover{
     background-color: #c08400;
 }
 
-.popup-in input[type="button"]:active{
+.popup-in input[type="submit"]:active{
     background-color: #743e00;
 }
 
