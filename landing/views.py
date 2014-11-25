@@ -13,21 +13,21 @@ def landing_render(request):
 
 
 def send_order(request):
-    super_users = User.objects.filter(is_superuser=True)
-    recipients = [super_user.email for super_user in super_users]
-    if not recipients:
-        recipients = [settings.EMAIL_HOST_USER]
-    try:
-        current_tour = Tour.objects.get(id=int(request.POST.get('tour-id')))
-    except Tour.DoesNotExist:
-        tours = Tour.objects.all()
-        if tours:
-            current_tour = tours[0]
-        else:
-            raise Exception('You should create at least one tour item')
-    user_name = ""
-    user_email = ""
     if request.method == 'POST':
+        super_users = User.objects.filter(is_superuser=True)
+        recipients = [super_user.email for super_user in super_users]
+        if not recipients:
+            recipients = [settings.EMAIL_HOST_USER]
+        try:
+            current_tour = Tour.objects.get(id=int(request.POST.get('tour-id')))
+        except Tour.DoesNotExist:
+            tours = Tour.objects.all()
+            if tours:
+                current_tour = tours[0]
+            else:
+                raise Exception('You should create at least one tour item')
+        user_name = ""
+        user_email = ""
         if request.POST["phone"]:
             if request.POST["name"]:
                 user_name = u'Имя клиента: ' + request.POST["name"] + '\n'
