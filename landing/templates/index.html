@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="header-top">
                 <div class="slider" id="slider">
                     {% for tour in tours %}
-                    <div class="slide" data-tour-id="{{ tour.id }}">
+                    <div class="slide" data-tour="{{ tour.id }}">
                         <div class="tour-image">
                             <img src="{{ MEDIA_URL }}{{ tour.picture }}">
                         </div>
@@ -97,7 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="header-form">
                 <div class="header-form-in">
                     <form action="/send-order/" method="post" class="phone-form"> {% csrf_token %}
-                        <input type="hidden" name="tour-id">
+                        <input type="hidden" name="tour">
                         <div class="user-phone-wrapper">
                             <input type="tel" placeholder="ВАШ НОМЕР ТЕЛЕФОНА" id="user-phone" name="phone"/>
                         </div>

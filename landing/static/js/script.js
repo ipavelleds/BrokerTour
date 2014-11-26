@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 
     $(function() {
-      $('input[name="tour-id"]').val($('.slide:eq('+ 0 +')').data('tour-id'));
+      $('input[name="tour"]').val($('.slide:eq('+ 0 +')').data('tour'));
       $('.slidesjs-pagination').hide(0);
       $('#slider').slidesjs({
         width: 700,
@@ -26,7 +26,7 @@ $(document).ready(function(){
           $('.slidesjs-pagination').hide(0);
         },
         complete: function(number) {
-          $('input[name="tour-id"]').val($('.slide:eq('+ (number - 1) +')').data('tour-id'))
+          $('input[name="tour"]').val($('.slide:eq('+ (number - 1) +')').data('tour'))
         }
         },
         navigation: {
@@ -69,62 +69,67 @@ $(document).ready(function(){
             var sizeEmpty = $form.find('.empty-field').size();
 
             if(sizeEmpty > 0){
-            if(btn.hasClass('disabled')){
-              return false
+                if(btn.hasClass('disabled')){
+                  return false
+                } else {
+                  btn.addClass('disabled')
+                }
             } else {
-              btn.addClass('disabled')
-            }
-            } else {
-            btn.removeClass('disabled')
+                btn.removeClass('disabled')
             }
 
-            },200);
+        },200);
 
-            btn.click(function(){
+        btn.click(function(){
             if($(this).hasClass('disabled')){
                 $(".phone-form-error").show();
             } else {
                 $(".phone-form-error").hide();
                 $("#popup").fadeIn(600);
-            }
-
-            $form.submit(function(e){
-                e.preventDefault();
-                var $this = $(this);
-                $this.find('.info-error').remove();
                 $.ajax({
                     method: "POST",
-                    url: $this.attr('action'),
-                    data: $this.serialize(),
-                    success: function(data){
-                        if (typeof data === "string") data = JSON.parse(data);
-                        if(data.success){
-                            $this.find('.info')
-                                .show().text('Всё удалось, спасибо за обращение')
-                        }else{
-                            var _ref, error, fieldError, errors = data.form;
-                            for (fieldError in errors) {
-                                if (!errors.hasOwnProperty(fieldError)) continue;
-                                _ref = errors[fieldError];
-                                for (var _i = 0, _len = _ref.length; _i < _len; _i++) {
-                                    error = _ref[_i];
-                                    $this.find("[name='" + fieldError + "']").after("<p class='info-error'>" + error + "</p>");
-                                }
-                            }
+                    url: $form.attr('action'),
+                    data: $form.serialize()
+                })
+            }
+        });
 
-                            $this.find('.info')
-                                .show().text("Ваши данные, к сожалению, не удалось сохранить. Напишите, пожалуйста, на help@kredit.online.")
+        $form.submit(function(e){
+            e.preventDefault();
+            var $this = $(this);
+            $this.find('.info-error').remove();
+            $.ajax({
+                method: "POST",
+                url: $this.attr('action'),
+                data: $this.serialize(),
+                success: function(data){
+                    if (typeof data === "string") data = JSON.parse(data);
+                    if(data.success){
+                        $this.find('.info')
+                            .show().text('Всё удалось, спасибо за обращение')
+                    }else{
+                        var _ref, error, fieldError, errors = data.form;
+                        for (fieldError in errors) {
+                            if (!errors.hasOwnProperty(fieldError)) continue;
+                            _ref = errors[fieldError];
+                            for (var _i = 0, _len = _ref.length; _i < _len; _i++) {
+                                error = _ref[_i];
+                                $this.find("[name='" + fieldError + "']").after("<p class='info-error'>" + error + "</p>");
+                            }
                         }
-                    },
-                    fail:function(data){
+
                         $this.find('.info')
                             .show().text("Ваши данные, к сожалению, не удалось сохранить. Напишите, пожалуйста, на help@kredit.online.")
-                    },
-                    dataType: 'text',
-                    crossDomain: true
-                });
-                return false
+                    }
+                },
+                fail:function(data){
+                    $this.find('.info')
+                        .show().text("Ваши данные, к сожалению, не удалось сохранить. Напишите, пожалуйста, на help@kredit.online.")
+                },
+                dataType: 'text',
+                crossDomain: true
             });
+            return false
         });
 
     });
