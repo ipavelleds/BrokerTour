@@ -106,7 +106,8 @@ $(document).ready(function(){
                     if (typeof data === "string") data = JSON.parse(data);
                     if(data.success){
                         $this.find('.info')
-                            .show().text('Всё удалось, спасибо за обращение')
+                            .show().text('Всё удалось, спасибо за обращение');
+                        dataLayer.push({'event': 'formSubmit'});
                     }else{
                         var _ref, error, fieldError, errors = data.form;
                         for (fieldError in errors) {
