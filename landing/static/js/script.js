@@ -127,7 +127,6 @@ $(document).ready(function(){
                     $this.find('.info')
                         .show().text("Ваши данные, к сожалению, не удалось сохранить. Напишите, пожалуйста, на help@kredit.online.")
                 },
-                dataType: 'text',
                 crossDomain: true
             });
             return false
