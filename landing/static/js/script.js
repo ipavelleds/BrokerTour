@@ -35,8 +35,16 @@ $(document).ready(function(){
           $('.slidesjs-pagination').hide(0);
         },
         complete: function(number) {
-          $('input[name="tour"]').val($('.slide:eq('+ (number - 1) +')').data('tour'))
-          history.pushState(null, "BrokerTour. " + $('.slide:eq(' + (number-1) + ') .description .name').text(), "#tour/" +  $('.slide:eq(' + (number-1) + ')').attr("data-tour"));
+            var $currentSlide = $('.slide:eq(' + (number-1) + ')'),
+                tourName = $currentSlide.find('.description .name p').text(),
+                tourId = $currentSlide.attr("data-tour");
+            $('input[name="tour"]').val($currentSlide.data('tour'));
+            history.pushState(null, "BrokerTour. " + tourName, "#tour/" +  tourId);
+            dataLayer.push({
+                event:'VirtualPageView',
+                'virtualPageURL': '/tour/' + tourId,
+                'virtualPageTitle' : tourName
+            });
         }
         },
         navigation: {
