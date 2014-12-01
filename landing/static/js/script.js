@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+    var firstSlide = 1;
+    $(function(){
+            var hash = location.hash;
+            if(hash){
+                var reg  = new RegExp("[0-9]+$");
+                firstSlide = $(".slide").index($("[data-tour=" + parseInt(reg.exec(hash)) + "]")) + 1;
+            }
+        });
 
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -21,12 +29,14 @@ $(document).ready(function(){
       $('#slider').slidesjs({
         width: 700,
         height: 265,
+        start: firstSlide,
         callback: {
-            loaded: function(){
+          loaded: function(){
           $('.slidesjs-pagination').hide(0);
         },
         complete: function(number) {
           $('input[name="tour"]').val($('.slide:eq('+ (number - 1) +')').data('tour'))
+          history.pushState(null, "BrokerTour. " + $('.slide:eq(' + (number-1) + ') .description .name').text(), "#tour/" +  $('.slide:eq(' + (number-1) + ')').attr("data-tour"));
         }
         },
         navigation: {
@@ -43,6 +53,8 @@ $(document).ready(function(){
             }
         }
      });
+
+
         $(".banner").click(function(e){
           e.preventDefault();
           $('a[data-slidesjs-item="' + $(this).attr("data-item") + '"]').trigger('click');
@@ -133,5 +145,4 @@ $(document).ready(function(){
         });
 
     });
-
 });
