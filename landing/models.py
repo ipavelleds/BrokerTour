@@ -32,6 +32,7 @@ class Proposal(models.Model, ModelDiffMixin):
     name = models.CharField(max_length=400, verbose_name="Имя клиента", blank=True, null=True)
     email = models.EmailField(max_length=200, verbose_name="Емайл", blank=True, null=True)
     tour = models.ForeignKey(Tour, verbose_name="Выбранный тур", blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.phone
