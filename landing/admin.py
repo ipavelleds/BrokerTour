@@ -3,7 +3,7 @@ from landing.models import Tour, Proposal
 
 
 class ProposalAdmin(admin.ModelAdmin):
-    list_display = ('tour', 'phone', 'name', 'email')
+    list_display = ('tour', 'phone', 'name', 'email', 'created')
 
 admin.site.register(Tour)
 admin.site.register(Proposal, ProposalAdmin)
