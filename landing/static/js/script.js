@@ -78,40 +78,17 @@ $(document).ready(function(){
         var $form = $('.phone-form'),
         btn = $form.find('.button-select-tour');
 
-        setInterval(function(){
-            var pmc = $('#user-phone');
-            if ( (pmc.val().length != 15) || pmc.val() == '' || (pmc.val().indexOf("_") != -1) ) {
-              pmc.addClass('empty-field');
-            } else {
-                pmc.removeClass('empty-field');
-            }
-
-            var sizeEmpty = $form.find('.empty-field').size();
-
-            if(sizeEmpty > 0){
-                if(btn.hasClass('disabled')){
-                  return false
-                } else {
-                  btn.addClass('disabled')
-                }
-            } else {
-                btn.removeClass('disabled')
-            }
-
-        },200);
 
         btn.click(function(){
-            if($(this).hasClass('disabled')){
-                $(".phone-form-error").show();
-            } else {
-                $(".phone-form-error").hide();
-                $("#popup").fadeIn(600);
-                $.ajax({
-                    method: "POST",
-                    url: $form.attr('action'),
-                    data: $form.serialize()
-                })
-            }
+            $("#popup").fadeIn(600);
+            $.ajax({
+                method: "POST",
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function(){
+                    dataLayer.push({'event': 'phoneSubmit'});
+                }
+            })
         });
 
         $form.submit(function(e){
